@@ -2,7 +2,6 @@ package org.avaje.moduuid;
 
 import java.util.UUID;
 
-import org.avaje.moduuid.ModUUID;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -26,5 +25,14 @@ public class ModUUIDTest {
     UUID uuid2 = ModUUID.decode(encodedUUID);
 
     Assert.assertNotNull(uuid2);
+  }
+  
+  @Test
+  public  void testShortUid() {
+    
+    String shortId = ModUUID.newShortId();
+    
+    System.out.println(shortId);
+    Assert.assertTrue(shortId.length() == 12);
   }
 }

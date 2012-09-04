@@ -1,6 +1,7 @@
 package org.avaje.moduuid;
 
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.UUID;
 
 import javax.xml.bind.DatatypeConverter;
@@ -13,13 +14,38 @@ import javax.xml.bind.DatatypeConverter;
  * encoding.
  * </p>
  */
-@SuppressWarnings("restriction")
 public class ModUUID {
 
   private static final int LENGTH_OF_UUID = 22;
 
+  private static final SecureRandom ng = new SecureRandom();
+
   /**
-   * Return a new UUID in a modified base64 encoded format.
+   * Return a 12 character string using a 72 bit randomly generated ID encoded
+   * in modified base64.
+   * <p>
+   * A UUID is 128 bits and this is 72 bits so quite a bit smaller but still
+   * very random with one in 4.7 * 10^21 chance of a collision.
+   * </p>
+   */
+  public static String newShortId() {
+
+    byte[] randomBytes = new byte[9];
+    ng.nextBytes(randomBytes);
+
+    String encoded64 = DatatypeConverter.printBase64Binary(randomBytes);
+    // change + and / to make url usable without URLEncoding
+    encoded64 = encoded64.replace('+', '-');
+    encoded64 = encoded64.replace('/', '_');
+    return encoded64;
+  }
+  
+  /**
+   * Return a new UUID in a modified base64 encoded format as 22 characters.
+   * <p>
+   * Note that the + and / characters are replaced with - and _ for use in URL's
+   * without requiring URL encoding.
+   * </p>
    */
   public static String newId() {
     return encode(UUID.randomUUID());
@@ -27,6 +53,10 @@ public class ModUUID {
 
   /**
    * Encode the UUID in modified base64 encoding.
+   * <p>
+   * Note that the + and / characters are replaced with - and _ for use in URL's
+   * without requiring URL encoding.
+   * </p>
    */
   public static String encode(UUID uuid) {
     return format(encode64(asByteArray(uuid)));
