@@ -18,7 +18,7 @@ public class ModUUID {
 
   private static final int LENGTH_OF_UUID = 22;
 
-  private static final SecureRandom ng = new SecureRandom();
+  private static final SecureRandom shortIdSecureRandom = new SecureRandom();
 
   /**
    * Return a 12 character string using a 72 bit randomly generated ID encoded
@@ -30,10 +30,13 @@ public class ModUUID {
    */
   public static String newShortId() {
 
+    // Random 72 bits
     byte[] randomBytes = new byte[9];
-    ng.nextBytes(randomBytes);
+    shortIdSecureRandom.nextBytes(randomBytes);
 
+    // base64 encode
     String encoded64 = DatatypeConverter.printBase64Binary(randomBytes);
+    
     // change + and / to make url usable without URLEncoding
     encoded64 = encoded64.replace('+', '-');
     encoded64 = encoded64.replace('/', '_');
