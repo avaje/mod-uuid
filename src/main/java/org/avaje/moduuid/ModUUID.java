@@ -27,6 +27,15 @@ public class ModUUID {
 
   private static final Base64.Encoder urlEncoder = Base64.getUrlEncoder();
 
+  private static final long MILLIS_DAY = 1000 * 60 * 60 * 24;
+
+  /**
+   * Return epoch today as hex string.
+   */
+  public static String today() {
+    return Integer.toHexString((int)(System.currentTimeMillis() / (MILLIS_DAY)));
+  }
+
   /**
    * Return a 12 character string using a 72 bit randomly generated ID encoded
    * in modified base64.
@@ -39,6 +48,20 @@ public class ModUUID {
 
     // Random 72 bits
     byte[] randomBytes = new byte[9];
+    shortIdSecureRandom.nextBytes(randomBytes);
+    return encode64(randomBytes);
+  }
+
+  /**
+   * Return a 16 character string using 96 bit randomly generated ID encoded
+   * in modified base64.
+   * <p>
+   * Provides a one in 7.9 * 10^28 chance of a collision.
+   * </p>
+   */
+  public static String newMediumId() {
+    // Random 96 bits
+    byte[] randomBytes = new byte[12];
     shortIdSecureRandom.nextBytes(randomBytes);
     return encode64(randomBytes);
   }
