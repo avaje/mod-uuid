@@ -1,8 +1,12 @@
-avaje-moduuid
+mod-uuid
 =============
 
-Provides a modified base64 encoded UUID (22 character wide UUID). This provides
+Provides:
+ - newId() : 22 character wide UUID as modified base64 encoded UUID. This provides
 a more compact encoding relative to the traditional 36 character wide UUID.
+- newShortId() : 12 character string using a 72 bit randomly generated ID encoded in modified base64.
+- newMediumId() : 16 character string using 96 bit randomly generated ID encoded in modified base64.
+- today() : epoch today as hex string
 
 
 This also provides short and medium random id strings base64 encoded. 
