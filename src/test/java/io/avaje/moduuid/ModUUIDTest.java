@@ -1,4 +1,4 @@
-package org.avaje.moduuid;
+package io.avaje.moduuid;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -53,7 +53,7 @@ public class ModUUIDTest {
   public  void testShortUid() {
 
     String shortId = ModUUID.newShortId();
-    
+
     System.out.println(shortId);
     Assert.assertTrue(shortId.length() == 12);
   }

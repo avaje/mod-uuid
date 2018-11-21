@@ -1,4 +1,4 @@
-package org.avaje.moduuid;
+package io.avaje.moduuid;
 
 import java.security.SecureRandom;
 import java.util.Base64;
